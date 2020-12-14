@@ -1,17 +1,18 @@
 import difflib
 import pandas as pd
 
-word_level():
+def word_level(type):
+
   #CSV containing Hypothesis and ground truth sentences.
-  Sentdata = pd.read_csv("/content/drive/My Drive/data_error_analysis/Full_Data.csv")
+  Sentdata = pd.read_csv("/PATH/TO/FILE.csv")
 
   #Checking Data
   #print(Sentdata.head())
 
   # Ground Truth sentences.
-  ground = list(Sentdata['Actual'].values)
+  ground = list(Sentdata["Actual"].values)
   # Hypothesis sentences for a particular decoding technique.
-  pred = list(Sentdata['Hypothesis_Bert'].values)
+  pred = list(Sentdata["Hypothesis_"+type].values)
 
   list_err = [] 
   corr = [] 
@@ -59,7 +60,7 @@ word_level():
   wrong = list_err.copy()
 
   #Saving Actual and Predicted word for a particular decoding technique to use later in character level analysis.
-  pd.DataFrame({"Actual_word":actual_words,"Predicted_word":predicted_words,"same?":bool_same}).to_csv("/content/drive/My Drive/data_error_analysis/Actual_BERT_FullData_ALLWORDS.csv",index=False)
+  pd.DataFrame({"Actual_word":actual_words,"Predicted_word":predicted_words,"same?":bool_same}).to_csv("Actual_"+type+"_ALLWORDS.csv",index=False)
 
   #Checking Data
   #print("wrong words count",len(wrong))
@@ -142,8 +143,8 @@ word_level():
 
   #Training Data Analysis
 
-  #CSV containing training sentences(transcripts).
-  TrainSentdata = pd.read_csv("/content/drive/My Drive/Microsoft Research Dataset/gu-in-Train/transcription.txt",sep="\t",names=["Id","Text"])
+  #TXT containing training sentences(transcripts).
+  TrainSentdata = pd.read_csv("Data Files/Train/transcription.txt",sep="\t",names=["Id","Text"])
 
   #Split for validation set(exclude the validation set)
   #TrainSentdata = TrainSentdata[:16000]
@@ -241,25 +242,26 @@ word_level():
   #Saving the word level analysis:
 
   #Words in testing which are predicted incorrectly as well as correctly and their frequencies.
-  corrwrongall.to_csv('/content/drive/My Drive/data_error_analysis/testcorrectwrongmix_BERT_fulldata.csv',index = False)
+  corrwrongall.to_csv("testcorrectwrongmix_"+type+".csv",index = False)
   #Words in testing which are always correctly predicted and their frequencies.
-  corrall.to_csv('/content/drive/My Drive/data_error_analysis/testcorrect_BERT_fulldata.csv',index = False)
+  corrall.to_csv("testcorrect_"+type+".csv",index = False)
   #Words in testing which are always incorrectly predicted and their frequencies. 
-  erroronly.to_csv('/content/drive/My Drive/data_error_analysis/testwrong_BERT_fulldata.csv',index = False)
+  erroronly.to_csv("testwrong_"+type".csv",index = False)
   #Count of words in training that are predicted correctly predicted as well as sometimes incorrectly predicted in testing and their frequencies.
-  traincorrwrongall.to_csv('/content/drive/My Drive/data_error_analysis/traincorrectwrongmix_BERT_fulldata.csv',index = False)
+  traincorrwrongall.to_csv("traincorrectwrongmix_"+type".csv",index = False)
   #Count of words in training that are predicted always correct in testing and their frequencies.
-  traincorrall.to_csv('/content/drive/My Drive/data_error_analysis/traincorrect_BERT_fulldata.csv',index = False)
+  traincorrall.to_csv("traincorrect_"+type+".csv",index = False)
   #Count of words in training that are always incorrectly predicted in inferencing and their frequencies.
-  trainerroronly.to_csv('/content/drive/My Drive/data_error_analysis/trainwrong_BERT_fulldata.csv',index = False)
+  trainerroronly.to_csv("trainwrong_"+type+".csv",index = False)
   #All the unique words of hypothesis and their frequencies.
-  totalwords.to_csv('/content/drive/My Drive/data_error_analysis/testtotalwords_BERT_fulldata.csv',index = False)
+  totalwords.to_csv("testtotalwords_"+type+".csv",index = False)
   #Count of total unique words and their frequencies.
-  traintotalwords.to_csv('/content/drive/My Drive/data_error_analysis/traintotalwords_BERT_fulldata.csv',index = False)
+  traintotalwords.to_csv("traintotalwords_"+type".csv",index = False)
 
-character_level():
+def character_level(type):
+
   #List of Actual and Predicted words
-  actpred = pd.read_csv("/content/drive/My Drive/data_error_analysis/Actual_BERT_FullData_ALLWORDS.csv")
+  actpred = pd.read_csv("Actual_"+type+"_ALLWORDS.csv")
 
   #Cleaning
   actpred.fillna(' ', inplace=True)
@@ -267,9 +269,9 @@ character_level():
   preds = list(actpred['Predicted_word'].values)
 
   #Training Words
-  corpus = pd.read_csv("/content/drive/My Drive/Microsoft Research Dataset/gu-in-Train/transcription.txt",sep="\t",names=["Id","Text"])
+  corpus = pd.read_csv("Data Files/Train/transcription.txt",sep="\t",names=["Id","Text"])
   #Testing Words
-  test_corpus = pd.read_csv("/content/drive/My Drive/Microsoft Research Dataset/gu-in-Test/transcription.txt",sep="\t",names=["Id","Text"])
+  test_corpus = pd.read_csv("Data Files/Test/transcription.txt",sep="\t",names=["Id","Text"])
   #corpus = corpus[:16000]
 
   # All the words used in training as well as testing.
@@ -517,28 +519,33 @@ character_level():
 
   #Saving the character level analysis: 
   #Saving the updated list of actual and predicted words with their frequencies
-  actpred.to_csv('/content/drive/My Drive/data_error_analysis/Actual_BERT_FullData_ALLWORDS.csv',index = False)
+  actpred.to_csv("Actual_"+type+"_ALLWORDS.csv',index = False)
   #Saving the Alphabet Count from #allwords[] list
-  alphabetcount.to_csv('/content/drive/My Drive/data_error_analysis/microsoft_gujarati_alphabets_count.csv',index = False)
+  alphabetcount.to_csv("microsoft_gujarati_alphabets_count.csv",index = False)
   #Count of words with Consonant error
-  cons_df.to_csv("/content/drive/My Drive/data_error_analysis/BERT_cons_df.csv",index=False)
+  cons_df.to_csv(type+"_cons_df.csv",index=False)
   #Count of words with Diacritic error
-  dias_df.to_csv("/content/drive/My Drive/data_error_analysis/BERT_dias_df.csv",index=False)
+  dias_df.to_csv(type+"_dias_df.csv",index=False)
   #Count of words with Independent error
-  inde_df.to_csv("/content/drive/My Drive/data_error_analysis/BERT_inde_df.csv",index=False)
-  ###Add discription for each dataframe here.
-  pd.DataFrame(freq_error_dia_actual,index=["frequency"]).to_csv("/content/drive/My Drive/data_error_analysis/BERT_freq_error_dia_actual.csv")
-  pd.DataFrame(freq_error_dia_pred,index=["frequency"]).to_csv("/content/drive/My Drive/data_error_analysis/BERT_freq_error_dia_pred.csv")
-  pd.DataFrame(freq_error_cons_actual,index=["frequency"]).to_csv("/content/drive/My Drive/data_error_analysis/BERT_freq_error_cons_actual.csv")
-  pd.DataFrame(freq_error_cons_pred,index=["frequency"]).to_csv("/content/drive/My Drive/data_error_analysis/BERT_freq_error_cons_pred.csv")
-  pd.DataFrame(freq_error_inde_actual,index=["frequency"]).to_csv("/content/drive/My Drive/data_error_analysis/BERT_freq_error_inde_actual.csv")
-  pd.DataFrame(freq_error_inde_pred,index=["frequency"]).to_csv("/content/drive/My Drive/data_error_analysis/BERT_freq_error_inde_pred.csv")
+  inde_df.to_csv(type+"_inde_df.csv",index=False)
+  #Frequency of Diacritic actual/needed in one letter error.
+  pd.DataFrame(freq_error_dia_actual,index=["frequency"]).to_csv(type+"_freq_error_dia_actual.csv")
+  #Frequency of Diacritic predicted/found in one letter error.
+  pd.DataFrame(freq_error_dia_pred,index=["frequency"]).to_csv(type+"_freq_error_dia_pred.csv")
+  #Frequency of Consonants actual/needed in one letter error.
+  pd.DataFrame(freq_error_cons_actual,index=["frequency"]).to_csv(type+"_freq_error_cons_actual.csv")
+  #Frequency of Consonants predicted/found in one letter error.
+  pd.DataFrame(freq_error_cons_pred,index=["frequency"]).to_csv(type+"_freq_error_cons_pred.csv")
+  #Frequency of Independents actual/needed in one letter error.
+  pd.DataFrame(freq_error_inde_actual,index=["frequency"]).to_csv(type+"_freq_error_inde_actual.csv")
+  #Frequency of Independents predicted/found in one letter error.
+  pd.DataFrame(freq_error_inde_pred,index=["frequency"]).to_csv(type+"_freq_error_inde_pred.csv")
   #Actual conjugate fast i.e. the predicted word has whole alphabet and actual word has half alphabet.
-  conjunctfast.to_csv('/content/drive/My Drive/data_error_analysis/gujarati_half_consonant_conjunctfast_pred.csv',index = False)
+  conjunctfast.to_csv(type+"_gujarati_half_consonant_conjunctfast_pred.csv",index = False)
   #Actual conjugate slow i.e. the predicted word has halp alphabet ad actual word has whole alphabet.
-  conjunctslow.to_csv('/content/drive/My Drive/data_error_analysis/gujarati_half_consonant_conjunctslow_pred.csv',index = False)  
+  conjunctslow.to_csv(type+"_gujarati_half_consonant_conjunctslow_pred.csv",index = False)
 
 
-if __name__ == "__main__":
-  word_level()
-  character_level()
+def start_analysis(type):
+  word_level(type)
+  character_level(type)
