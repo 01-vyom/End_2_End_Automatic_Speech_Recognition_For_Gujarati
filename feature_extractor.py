@@ -200,11 +200,11 @@ def feature_extraction(
     """
 
     lsx = tf.keras.preprocessing.sequence.pad_sequences(
-        lsx, padding="post", dtype="float32", value=pad_value_audio_feature, maxlen=1805
+        lsx, padding="post", dtype="float32", value=pad_value_audio_feature, maxlen=1000
     )
 
     lsy = tf.keras.preprocessing.sequence.pad_sequences(
-        lsy, padding="post", value=pad_value_character_index, maxlen=150
+        lsy, padding="post", value=pad_value_character_index, maxlen=100
     )
 
     lsx_v = tf.keras.preprocessing.sequence.pad_sequences(
@@ -212,10 +212,10 @@ def feature_extraction(
         padding="post",
         dtype="float32",
         value=pad_value_audio_feature,
-        maxlen=2022,
+        maxlen=1000,
     )
     lsy_v = tf.keras.preprocessing.sequence.pad_sequences(
-        lsy_v, padding="post", value=pad_value_character_index, maxlen=150
+        lsy_v, padding="post", value=pad_value_character_index, maxlen=100
     )
 
     # convert to tensor so it is trainable by tensorflow
