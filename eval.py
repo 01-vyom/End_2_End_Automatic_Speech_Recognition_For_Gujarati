@@ -1,4 +1,3 @@
-from __future__ import division, print_function
 import tensorflow as tf
 import pandas as pd
 import numpy as np
@@ -102,7 +101,7 @@ def generate_input_from_audio_file_test(path_to_audio_file, resample_to=8000):
 def eval(test_file_name, model_name):
     # generate the output from given trained model
     test_data = pd.read_csv(
-        "Data Files/Test/" + test_file_name, sep="\t", names=["Id", "Text"]
+        "Data Files/Test/" + test_file_name + ".txt", sep="\t", names=["Id", "Text"]
     )
     model = dill.load(open(model_name + ".pickle", "rb"))
     # test_data.head()
@@ -138,6 +137,6 @@ def eval(test_file_name, model_name):
 
 
 if __name__ == "__main__":
-    model = "MODEL_NAME.pickle"
-    test_data = "transcription.txt"
+    model = "MODEL_NAME"
+    test_data = "transcription"
     eval(test_data, model)
