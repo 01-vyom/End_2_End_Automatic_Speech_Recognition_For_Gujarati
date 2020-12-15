@@ -193,7 +193,18 @@ def train_model(
     out_units=76,
     epochs=1,
 ):
-
+    """
+    trains the model and also plots the training data
+    :param train_dataset: it is the BatchDataset containing training data
+    :param validation_dataset: it is the BatchDataset containing validation data
+    :param conv_filer: number of convolution filters
+    :param kernel_size: sixe of the kernel
+    :param stride: stride length
+    :param lstm_units: number of lstm units
+    :param dense_units: number of dense units
+    :param out_units: number of output units
+    :param epochs: number of epochs
+    """
     _conv_filter_ = conv_filer
     _kernel_size_ = kernel_size
     _stride_ = stride
