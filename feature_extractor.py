@@ -148,6 +148,12 @@ def generate_max(t_data, lsx, lsy, lenmfcc, leny):
 def feature_extraction(
     train_val_split=0.8, pad_value_audio_feature=0.0, pad_value_character_index=75
 ):
+    """
+    this function will extract the features from the audio stored at the data directory (here "./Data/Train/Audios/")
+    :param train_val_split: percent of data in training (range: 0-1)
+    :param pad_value_audio_feature: padding value for input features (X)
+    :param pad_value_character_index: padding value for the formatted references (Y)
+    """
     lsx = []
     lsy = []
     lenmfcc = []
