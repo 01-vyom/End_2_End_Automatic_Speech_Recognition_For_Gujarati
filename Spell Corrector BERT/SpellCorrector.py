@@ -4,8 +4,8 @@ from CreateDict import createDictionary
 
 class SpellCorrector:
     """
-    The SpellCorrector extends the functionality of the huseinzol05's
-    spell-corrector in http://tiny.cc/SpellCorrector
+    The SpellCorrector extends the functionality of the Peter Norvig's
+    spell-corrector in http://norvig.com/spell-correct.html
     """
 
     def __init__(self):

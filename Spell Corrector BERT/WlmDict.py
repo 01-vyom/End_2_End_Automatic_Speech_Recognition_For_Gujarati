@@ -1,7 +1,7 @@
 from collections import Counter
 
 def wlmDictionary():
-    with open('Data Files/gujdata.txt', 'r') as file:
+    with open('PATH_TO/gujdata.txt', 'r') as file:
         corpus = file.read().replace('\n', ' ')
     new_cor = corpus
     cor_ls = new_cor.split(" ")
