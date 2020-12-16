@@ -821,7 +821,7 @@ if __name__ == "__main__":
     # List of types of decoding
     types = ["Greedy_", "Prefix_", "Prefix_LM_", "Prefix_WLM_", "Prefix_CLM_"]
     # Type of model used for hypothesis generation and decoding.
-    model_name = "MODEL_NAME"
+    model_name = "temp_model"
     # Select type of decoding by entering a number : 1) Greedy 2) Prefix with NO LM 3) Prefix with Both LM 4) Prefix with WLM 5) Prefix with CLM 6) Bert
     type = types[0]
     start_analysis(model_name, type)

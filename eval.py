@@ -108,7 +108,7 @@ def eval(test_file_name, model_name):
     test_data = pd.read_csv(
         "Data Files/Test/" + test_file_name + ".txt", sep="\t", names=["Id", "Text"]
     )
-    model = dill.load(open(model_name + ".pickle", "rb"))
+    model = dill.load(open("./Models/" + model_name + ".pickle", "rb"))
     # test_data.head()
     hyps = []
     refs = []
@@ -142,6 +142,6 @@ def eval(test_file_name, model_name):
 
 
 if __name__ == "__main__":
-    model = "MODEL_NAME"
+    model = "temp_model"
     test_data = "transcription"
     eval(test_data, model)
