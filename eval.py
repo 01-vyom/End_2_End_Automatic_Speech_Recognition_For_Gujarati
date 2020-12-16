@@ -99,6 +99,11 @@ def generate_input_from_audio_file_test(path_to_audio_file, resample_to=8000):
 
 
 def eval(test_file_name, model_name):
+    """
+    function to test audio samples and store the otput in a pickle file.
+    :param test_file_name: Stores the name of the file from which the audio ID will be fetched.
+    :param model_name: Stores model name which is used to retreive the model.
+    """
     # generate the output from given trained model
     test_data = pd.read_csv(
         "Data Files/Test/" + test_file_name + ".txt", sep="\t", names=["Id", "Text"]
