@@ -135,7 +135,7 @@ def generate_max(t_data, lsx, lsy, lenmfcc, leny):
     for d in t_data.itertuples():
         id = str(d.Id).zfill(9)
         text = str(d.Text).lower()
-        path = "./Data/Train/Audios/" + id + ".wav"
+        path = "./Data Files/Train/Audios/" + id + ".wav"
         X, lenmfcc_per = generate_input_from_audio_file(path)
         y, leny_per = generate_target_output_from_text(text)
         lsx.append(X)
@@ -161,8 +161,8 @@ def feature_extraction(
     # Read number of audio files in the ./Data/Train/Audios
     total_files = [
         f
-        for f in listdir("./Data/Train/Audios/")
-        if isfile(join("./Data/Train/Audios/", f))
+        for f in listdir("./Data Files/Train/Audios/")
+        if isfile(join("./Data Files/Train/Audios/", f))
     ]
 
     # total number of files
@@ -170,7 +170,7 @@ def feature_extraction(
     # 0 till Traind will be training data and from Traind till end it will be validation data
     Traind = int(Totald * train_val_split)
     t_data = pd.read_csv(
-        "./Data/Train/transcription.txt", sep="\t", names=["Id", "Text"]
+        "./Data Files/Train/transcription.txt", sep="\t", names=["Id", "Text"]
     )
     t_data.head()
 
