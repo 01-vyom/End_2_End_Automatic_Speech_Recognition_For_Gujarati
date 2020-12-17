@@ -11,6 +11,9 @@ tokenization.validate_case_matches_checkpoint(False,BERT_INIT_CHKPNT)
 tokenizer = tokenization.FullTokenizer(vocab_file=BERT_VOCAB, do_lower_case=False)
 
 def maskedId(tokens, mask_ind):
+    """
+    Generate masked id of the tokens.
+    """
     masked_tokens = tokens[:]
     masked_tokens[mask_ind] = "[MASK]"
     masked_tokens = ["[CLS]"] + masked_tokens + ["[SEP]"]

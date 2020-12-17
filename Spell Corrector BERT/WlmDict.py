@@ -1,6 +1,10 @@
 from collections import Counter
 
 def wlmDictionary():
+    """
+    Function to generate all the possible n-grams upto 4.
+    """
+
     with open('Data Files/gujdata.txt', 'r') as file:
         corpus = file.read().replace('\n', ' ')
     new_cor = corpus
