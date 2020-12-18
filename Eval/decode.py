@@ -19,11 +19,9 @@ lmword_data = None
 def lm(string, total=2501841):
     """
     4 Gram Word-Level Langauage Model which returns the probability based on the input words.
-    Args:
-      string (string): Words separated by space.
-      total (int): Total words in the corpus usd to form the model.
-    Returns:
-      float: Probability.
+    :param  string (string): Words separated by space.
+    :param  total (int): Total words in the corpus.
+    :return: Probability.
     """
 
     sl = list(string.split(" "))
@@ -160,19 +158,16 @@ def prefix_beam_search(
 ):
     """
     Performs prefix beam search on the output of a CTC network.
-    Args:
-
-      ctc (np.ndarray): The CTC output. Should be a 2D array (timesteps x alphabet_size)
-      alphabet (list of strings): The alphabets of the Gujarati language + [space_token, end_token, blank_token]
-      lm (func): Word Level Language model function. Should take as input a string and output a probability.
-      lmchar (object): Character-Level Language model Object. Should take 2 characters ass input anf give probability of both of them occuring together.
-      k (int): The beam width. Will keep the 'k' most likely candidates at each timestep.
-      alphac (float): The character level language model weight. Should usually be between 0 and 1.
-      alphaw (float): The word level language model weight. Should usually be between 0 and 1.
-      beta (float): The language model compensation term. The higher the 'alpha', the higher the 'beta'.
-      prune (float): Only extend prefixes with chars with an emission probability higher than 'prune'.
-    Returns:
-      string: The decoded CTC output.
+    :param  ctc (np.ndarray): The CTC output. Should be a 2D array (timesteps x alphabet_size)
+    :param  alphabet (list): The alphabets of the Gujarati language + [space_token, end_token, blank_token]
+    :param  lm (func): Word Level Language model function. Should take as input a string and output a probability.
+    :param  lmchar (class of LanguageModel): Character-Level Language model Object. Should take 2 characters ass input anf give probability of both of them occuring together.
+    :param  k (int): The beam width. Will keep the 'k' most likely candidates at each timestep.
+    :param  alphac (float): The character level language model weight. Should usually be between 0 and 1.
+    :param  alphaw (float): The word level language model weight. Should usually be between 0 and 1.
+    :param  beta (float): The language model compensation term. The higher the 'alpha', the higher the 'beta'.
+    :param  prune (float): Only extend prefixes with chars with an emission probability higher than 'prune'.
+    :return: The decoded CTC output.
     """
 
     lm = (
@@ -269,11 +264,9 @@ def prefix_beam_search(
 def init(alphabet):
     """
     Initializes Word Level LM Data an Character level LM Object.
-    Args:
-      alphabet (list of strings): The alphabets of the Gujarati language + [space_token, end_token, blank_token]
-    Returns:
-      list: list of dictionaires required for Word Level language model
-      lmchar: Character Level Language Model Object
+    :param  alphabet (list): The alphabets of the Gujarati language + [space_token, end_token, blank_token]
+    :return: list of dictionaires required for Word Level language model
+    :return: Character Level Language Model Object
     """
 
     ##Character Level Language Model Init
@@ -315,10 +308,9 @@ def init(alphabet):
 def decode(lmchar, alphabet, model_name):
     """
     Performs all types of decoding on the output of a CTC network and saves them in one .CSV file.
-    Args:
-      alphabet (list of strings): The alphabets of the Gujarati language + [space_token, end_token, blank_token]
-      lmchar (object): Character-Level Language model Object. Should take 2 characters ass input anf give probability of both of them occuring together.
-      model_name (string): Name of the model for which the the hypothesis will be decoded and saved.
+    :param  alphabet (list): The alphabets of the Gujarati language + [space_token, end_token, blank_token]
+    :param  lmchar (class of LanguageModel): Character-Level Language model Object. Should take 2 characters ass input anf give probability of both of them occuring together.
+    :param  model_name (string): Name of the model for which the the hypothesis will be decoded and saved.
     """
     # call the decoder_and_merger given output from trained model
     refs = dill.load(open("./Eval/refs_" + model_name + ".pickle", "rb"))

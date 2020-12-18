@@ -10,8 +10,8 @@ def generate_input_from_audio_file(path_to_audio_file, resample_to=8000):
     """
     function to create input for our neural network from an audio file.
     The function loads the audio file using librosa, resamples it, and creates spectrogram form it
-    :param path_to_audio_file: path to the audio file
-    :param resample_to:
+    :param path_to_audio_file (string): path to the audio file
+    :param resample_to (int): sampling rate
     :return: spectrogram corresponding to the input file
     """
 
@@ -32,7 +32,7 @@ def generate_target_output_from_text(target_text):
     Target output is an array of indices for each character in your string.
     The indices comes from a mapping that will
     be used while decoding the ctc output.
-    :param target_text: (str) target string
+    :param target_text (string): target string
     :return: array of indices for each character in the string
     """
     gujarati_alphabet = [
@@ -150,9 +150,9 @@ def feature_extraction(
 ):
     """
     this function will extract the features from the audio stored at the data directory (here "./Data/Train/Audios/")
-    :param train_val_split: percent of data in training (range: 0-1)
-    :param pad_value_audio_feature: padding value for input features (X)
-    :param pad_value_character_index: padding value for the formatted references (Y)
+    :param train_val_split (float): percent of data in training (range: 0-1)
+    :param pad_value_audio_feature (float): padding value for input features (X)
+    :param pad_value_character_index (int): padding value for the formatted references (Y)
     """
     lsx = []
     lsy = []
@@ -202,7 +202,7 @@ def feature_extraction(
         the audio feature having length greater than its given value. It helps to limit length of the feature and is
         helpful in case of memory constraint
 
-        If you have no RAM constraint you can use dynamic padding, that pads to max  feature length. Remove this parameter.
+        If you have no RAM constraint you can use dynamic padding, that pads to max feature length. Remove 'maxlen' parameter.
     """
 
     lsx = tf.keras.preprocessing.sequence.pad_sequences(
