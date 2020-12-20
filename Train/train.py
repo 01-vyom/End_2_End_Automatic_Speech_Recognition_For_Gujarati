@@ -25,10 +25,10 @@ def compute_ctc_loss(logits, labels, logit_length, label_length):
     """
     function to compute CTC loss.
     Note: tf.nn.ctc_loss applies log softmax to its input automatically
-    :param logits: Logits from the output dense layer
-    :param labels: Labels converted to array of indices
-    :param logit_length: Array containing length of each input in the batch
-    :param label_length: Array containing length of each label in the batch
+    :param logits (tensor): Logits from the output dense layer
+    :param labels (tensor): Labels converted to array of indices
+    :param logit_length (list): Array containing length of each input in the batch
+    :param label_length (list): Array containing length of each label in the batch
     :return: array of ctc loss for each element in batch
     """
     return tf.nn.ctc_loss(
@@ -46,10 +46,12 @@ def compute_ctc_loss(logits, labels, logit_length, label_length):
 def train_sample(x, y, optimizer, model, lenmfcc, leny):
     """
     function perform forward and backpropagation on one batch
-    :param x: one batch of input
-    :param y: one batch of target
-    :param optimizer: optimizer
-    :param model: object of the ASR class
+    :param x (BatchDataset): one batch of input
+    :param y (BatchDataset): one batch of target
+    :param optimizer (class of optimizer): optimizer
+    :param model (class of ASR): object of the ASR class
+    :param lenmfcc (list): length of each feature in a list
+    :param leny (list): length of each reference text in a list
     :return: loss from this step
     """
 
@@ -74,9 +76,11 @@ def train_sample(x, y, optimizer, model, lenmfcc, leny):
 def validate_sample(x, y, model, lenmfcc, leny):
     """
     function perform forward and backpropagation on one batch
-    :param x: one batch of input
-    :param y: one batch of target
-    :param model: object of the ASR class
+    :param x (BatchDataset): one batch of input
+    :param y (BatchDataset): one batch of target
+    :param model (class of ASR): object of the ASR class
+    :param lenmfcc (list): length of each feature in a list
+    :param leny (list): length of each reference text in a list
     :return: loss from this step
     """
     logits = model(x)
@@ -100,12 +104,11 @@ def train(model, optimizer, epochs, train_dataset, validation_dataset):
     Note:
     For this example, I am passing a single batch of input to this function
     Therefore, the loop for iterating through batches is missing
-    :param model: object of class ASR
-    :param optimizer: optimizer
-    :param X:
-    :param Y:
-    :param epochs:
-    :return: None
+    :param model (class of ASR): object of class ASR
+    :param optimizer (class of optimizer): optimizer
+    :param epochs (int): number of epochs
+    :param train_dataset (BatchDataset): whole training data
+    :param validation_dataset (BatchDataset): whole validation data
     """
 
     for e in range(1, epochs):
@@ -145,15 +148,16 @@ def train_model(
 ):
     """
     trains the model and also plots the training data
-    :param train_dataset: it is the BatchDataset containing training data
-    :param validation_dataset: it is the BatchDataset containing validation data
-    :param conv_filer: number of convolution filters
-    :param kernel_size: sixe of the kernel
-    :param stride: stride length
-    :param lstm_units: number of lstm units
-    :param dense_units: number of dense units
-    :param out_units: number of output units
-    :param epochs: number of epochs
+    :param train_dataset (BatchDataset): it is the BatchDataset containing training data
+    :param validation_dataset (BatchDataset): it is the BatchDataset containing validation data
+    :param conv_filer (int): number of convolution filters
+    :param kernel_size (int): sixe of the kernel
+    :param stride (int): stride length
+    :param conv_border (string): type of convolutional border -valid/same
+    :param lstm_units (int): number of lstm units
+    :param dense_units (int): number of dense units
+    :param out_units (int): number of output units
+    :param epochs (int): number of epochs
     """
     _conv_filter_ = conv_filer
     _kernel_size_ = kernel_size
@@ -200,10 +204,8 @@ def init():
     model = train_model(train_dataset, validation_dataset)
 
     # save model
-    currmodel = (
-        "./Models/temp_model.pickle"  # to save model with other name change this
-    )
-    dill.dump(model, file=open(currmodel, "wb"))
+    currmodel = "temp_model"  # to save model with other name change this
+    dill.dump("./Models/" + currmodel + ".pickle", file=open(currmodel, "wb"))
 
 
 if __name__ == "__main__":

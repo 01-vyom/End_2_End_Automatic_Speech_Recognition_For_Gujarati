@@ -25,12 +25,13 @@ if __name__ == "__main__":
   unzip multi_cased_L-12_H-768_A-12.zip
   '''
 
-  t_data = pd.read_csv('PATH_TO/Full_Data.csv')
-  t_data = t_data['Hypothesis_Prefix_LM']
+  model_name = "temp_model" # Replace the model name with your model
+  t_data = pd.read_csv("./Eval/" + model_name + "_ALL_DECODING.csv")
+  t_data = t_data["Hypothesis_Prefix_LM_" + model_name]
 
   t_data_new = []
   for i in range(2950,3075):
-    t_data_new.append(re.sub(r'[\s]+', ' ',t_data[i].strip()))
+    t_data_new.append(re.sub(r'[\s]+', ' ', t_data[i].strip()))
 
   sentences_after = []
   k=0
@@ -54,5 +55,5 @@ if __name__ == "__main__":
     k+=1
 
   df = pd.DataFrame(sentences_after,columns=['Prefix_Bert'])
-  path = "PATH_TO/bert_final.csv"
+  path = "Spell Corrector BERT/bert_final.csv"
   df.to_csv(path)

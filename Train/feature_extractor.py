@@ -10,8 +10,8 @@ def generate_input_from_audio_file(path_to_audio_file, resample_to=8000):
     """
     function to create input for our neural network from an audio file.
     The function loads the audio file using librosa, resamples it, and creates spectrogram form it
-    :param path_to_audio_file: path to the audio file
-    :param resample_to:
+    :param path_to_audio_file (string): path to the audio file
+    :param resample_to (int): sampling rate
     :return: spectrogram corresponding to the input file
     """
 
@@ -32,7 +32,7 @@ def generate_target_output_from_text(target_text):
     Target output is an array of indices for each character in your string.
     The indices comes from a mapping that will
     be used while decoding the ctc output.
-    :param target_text: (str) target string
+    :param target_text (string): target string
     :return: array of indices for each character in the string
     """
     gujarati_alphabet = [
@@ -131,11 +131,22 @@ def generate_target_output_from_text(target_text):
     return y, leny
 
 
-def generate_max(t_data, lsx, lsy, lenmfcc, leny):
+def encode_input_and_output(t_data, lsx, lsy, lenmfcc, leny, PathDataAudios):
+    """
+    this function will encode all the audios and their respective
+    transcripts in format required for training model
+    :param t_data (DataFrame): pandas dataframe containing the audio file names and their respective transcripts
+    :param lsx (list): list of all encoded input audio
+    :param lsy (list): list of all encoded input transcript
+    :param lenmfcc (list): list of length of all encoded input audio
+    :param leny (list): list of length of all encoded transcripts
+    :param PathDataAudios (int): Path to folder where all audio files are stored
+    """
     for d in t_data.itertuples():
         id = str(d.Id).zfill(9)
         text = str(d.Text).lower()
-        path = "./Data Files/Train/Audios/" + id + ".wav"
+        AudioFileExtention = ".wav"
+        path = PathDataAudios + id + AudioFileExtention
         X, lenmfcc_per = generate_input_from_audio_file(path)
         y, leny_per = generate_target_output_from_text(text)
         lsx.append(X)
@@ -150,32 +161,35 @@ def feature_extraction(
 ):
     """
     this function will extract the features from the audio stored at the data directory (here "./Data/Train/Audios/")
-    :param train_val_split: percent of data in training (range: 0-1)
-    :param pad_value_audio_feature: padding value for input features (X)
-    :param pad_value_character_index: padding value for the formatted references (Y)
+    :param train_val_split (float): percent of data in training (range: 0-1)
+    :param pad_value_audio_feature (float): padding value for input features (X)
+    :param pad_value_character_index (int): padding value for the formatted references (Y)
     """
     lsx = []
     lsy = []
     lenmfcc = []
     leny = []
+    PathDataAudios = (
+        "./Data Files/Train/Audios/"  # path to the training data audios (X)
+    )
+
+    PathDataTranscripts = "./Data Files/Train/transcription.txt"  # path to the training data transcripts (Y)
     # Read number of audio files in the ./Data/Train/Audios
     total_files = [
-        f
-        for f in listdir("./Data Files/Train/Audios/")
-        if isfile(join("./Data Files/Train/Audios/", f))
+        f for f in listdir(PathDataAudios) if isfile(join(PathDataAudios, f))
     ]
 
     # total number of files
     Totald = len(total_files)
     # 0 till Traind will be training data and from Traind till end it will be validation data
     Traind = int(Totald * train_val_split)
-    t_data = pd.read_csv(
-        "./Data Files/Train/transcription.txt", sep="\t", names=["Id", "Text"]
-    )
+    t_data = pd.read_csv(PathDataTranscripts, sep="\t", names=["Id", "Text"])
     t_data.head()
 
     # generate input feature from audio files
-    lsx, lsy, lenmfcc, leny = generate_max(t_data[:Totald], lsx, lsy, lenmfcc, leny)
+    lsx, lsy, lenmfcc, leny = encode_input_and_output(
+        t_data[:Totald], lsx, lsy, lenmfcc, leny, PathDataAudios
+    )
 
     # lsx = lsx[: 2000 + 428]
     # lsy = lsy[: 2000 + 428]
@@ -202,7 +216,7 @@ def feature_extraction(
         the audio feature having length greater than its given value. It helps to limit length of the feature and is
         helpful in case of memory constraint
 
-        If you have no RAM constraint you can use dynamic padding, that pads to max  feature length. Remove this parameter.
+        If you have no RAM constraint you can use dynamic padding, that pads to max feature length. Remove 'maxlen' parameter.
     """
 
     lsx = tf.keras.preprocessing.sequence.pad_sequences(

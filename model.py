@@ -49,6 +49,7 @@ class ASR(tf.keras.Model):
         self.dense_layer3 = tf.keras.layers.Dense(_out_units_)
 
     def call(self, x):
+        "Calls different layers one-by-one"
         # print("Start : ",x.shape)
         x = self.conv_layer(x)
         # print("Conv1 : ",x.shape)

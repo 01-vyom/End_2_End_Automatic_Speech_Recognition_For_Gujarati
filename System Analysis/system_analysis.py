@@ -7,9 +7,8 @@ import numpy as np
 def word_level(model_name, type):
     """
     Performs Word Level Analysis on given .CSV file and stores the result in different .CSV files according to type of decoding and model name.
-    Args:
-        model_name (string): Model Name to specify the file on which the analysis is to be performed.
-        type (string): Specifying type of decoding on which analysis is to be done.
+    :param  model_name (string): Model Name to specify the file on which the analysis is to be performed.
+    :param  type (string): Specifying type of decoding on which analysis is to be done.
     """
 
     # CSV containing Hypothesis and ground truth sentences.
@@ -308,9 +307,8 @@ def word_level(model_name, type):
 def character_level(model_name, type):
     """
     Performs Character Level Analysis on CSV file generated in word level analysis and stores the result in different .CSV files according to type of decoding and model name.
-    Args:
-        model_name (string): Model Name to specify the file on which the analysis is to be performed.
-        type (string): Specifying type of decoding on which analysis is to be done.
+    :param  model_name (string): Model Name to specify the file on which the analysis is to be performed.
+    :param  type (string): Specifying type of decoding on which analysis is to be done.
     """
 
     # List of Actual and Predicted words
@@ -836,9 +834,8 @@ def character_level(model_name, type):
 def start_analysis(model_name, type):
     """
     Performs Word level and character level Analysis by calling individual functions. As character level analysis requires word level analysis to be performed first, this extra function is used for analysis.
-    Args:
-        model_name (string): Model Name to specify the file on which the analysis is to be performed.
-        type (string): Specifying type of decoding on which analysis is to be done.
+    :param  model_name (string): Model Name to specify the file on which the analysis is to be performed.
+    :param  type (string): Specifying type of decoding on which analysis is to be done.
     """
 
     word_level(model_name, type)
@@ -849,7 +846,7 @@ if __name__ == "__main__":
     # List of types of decoding
     types = ["Greedy_", "Prefix_", "Prefix_LM_", "Prefix_WLM_", "Prefix_CLM_"]
     # Type of model used for hypothesis generation and decoding.
-    model_name = "temp_model"
+    model = "temp_model"
     # Select type of decoding by entering a number : 1) Greedy 2) Prefix with NO LM 3) Prefix with Both LM 4) Prefix with WLM 5) Prefix with CLM 6) Bert
     type = types[0]
-    start_analysis(model_name, type)
+    start_analysis(model, type)
