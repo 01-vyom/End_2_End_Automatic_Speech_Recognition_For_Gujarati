@@ -3,11 +3,11 @@
 
 ### [[Paper]](https://mypaperpage.pdf) |  [[Demo Video]](https://youtu.be/9YiZZ_8guq8) | [[Long Oral Talk]](https://youtu.be/RO4BBpe61h8)
 
-[Deepang Raval](wp_1)<sup>1</sup> | [Vyom Pathak](wp_2)<sup>1</sup> | [Muktan Patel](https://wp_3)<sup>1</sup> | [Brijesh Bhatt]([https://wp_4](https://scholar.google.com/citations?user=aEkOFcUAAAAJ))<sup>1</sup>
+[Deepang Raval](wp_1)<sup>1</sup> | [Vyom Pathak](wp_2)<sup>1</sup> | [Muktan Patel](https://wp_3)<sup>1</sup> | [Brijesh Bhatt](https://scholar.google.com/citations?user=aEkOFcUAAAAJ)<sup>1</sup>
 
 <sup>1</sup>[Dharmsinh Desai University, Nadiad](https://ddu.ac.in)
 
-<div style="text-align: justify"> We present a novel approach for improving the performance of an End-to-End speech recognition system for the Gujarati language. We follow a deep learning based approach which includes Convolutional Neural Network (CNN), Bi-directional Long Short Term Memory (BiLSTM) layers, Dense layers, and Connectionist Temporal Classification (CTC) as a loss function. In order to improve the performance of the system with the limited size of the dataset, we present a combined language model (WLM and CLM) based prefix decoding technique and Bidirectional Encoder Representations from Transformers (BERT) based post-processing technique. To gain key insights from our Automatic Speech Recognition (ASR) system, we proposed different analysis methods. These insights help to understand our ASR system based on a particular language (Gujarati) as well as can govern ASR systems' to improve the performance for low resource languages. We have trained the model on the Microsoft Speech Corpus, and we observe a 5.11% decrease in Word Error Rate (WER) with respect to base-model WER.</div>
+We present a novel approach for improving the performance of an End-to-End speech recognition system for the Gujarati language. We follow a deep learning based approach which includes Convolutional Neural Network (CNN), Bi-directional Long Short Term Memory (BiLSTM) layers, Dense layers, and Connectionist Temporal Classification (CTC) as a loss function. In order to improve the performance of the system with the limited size of the dataset, we present a combined language model (WLM and CLM) based prefix decoding technique and Bidirectional Encoder Representations from Transformers (BERT) based post-processing technique. To gain key insights from our Automatic Speech Recognition (ASR) system, we proposed different analysis methods. These insights help to understand our ASR system based on a particular language (Gujarati) as well as can govern ASR systems' to improve the performance for low resource languages. We have trained the model on the Microsoft Speech Corpus, and we observe a 5.11% decrease in Word Error Rate (WER) with respect to base-model WER.
 
 <br/>
 If you find this work useful in your research, please cite using the following BibTeX:
@@ -42,7 +42,7 @@ If you find this work useful in your research, please cite using the following B
 
 Change directory to the root of the repository.
 
-```python
+```shell
 cd ./End_2_End_Automatic_Speech_Recognition_For_Gujarati
 ```
 
@@ -98,7 +98,7 @@ For post-processing the decoded output, follow the steps mentioned in this [READ
 
 To perform the system analysis, run:
 
-```python
+```shell
 python ./System Analysis/system_analysis.py
 ```
 
