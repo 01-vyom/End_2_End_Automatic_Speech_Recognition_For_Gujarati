@@ -204,10 +204,8 @@ def init():
     model = train_model(train_dataset, validation_dataset)
 
     # save model
-    currmodel = (
-        "./Models/temp_model.pickle"  # to save model with other name change this
-    )
-    dill.dump(model, file=open(currmodel, "wb"))
+    currmodel = "temp_model"  # to save model with other name change this
+    dill.dump("./Models/" + currmodel + ".pickle", file=open(currmodel, "wb"))
 
 
 if __name__ == "__main__":

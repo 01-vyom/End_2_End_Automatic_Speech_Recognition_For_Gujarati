@@ -493,5 +493,5 @@ if __name__ == "__main__":
     alphabet = gujarati_alphabet + [space_token, end_token, blank_token]
     lmword_data, lmchar = init(alphabet)
     # Model Specific Reference and Hypothesis.
-    model_name = "temp_model"
-    decode(lmchar, alphabet, model_name)
+    model = "temp_model"
+    decode(lmchar, alphabet, model)

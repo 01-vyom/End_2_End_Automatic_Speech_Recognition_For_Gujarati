@@ -131,11 +131,22 @@ def generate_target_output_from_text(target_text):
     return y, leny
 
 
-def generate_max(t_data, lsx, lsy, lenmfcc, leny):
+def encode_input_and_output(t_data, lsx, lsy, lenmfcc, leny, PathDataAudios):
+    """
+    this function will encode all the audios and their respective
+    transcripts in format required for training model
+    :param t_data (DataFrame): pandas dataframe containing the audio file names and their respective transcripts
+    :param lsx (list): list of all encoded input audio
+    :param lsy (list): list of all encoded input transcript
+    :param lenmfcc (list): list of length of all encoded input audio
+    :param leny (list): list of length of all encoded transcripts
+    :param PathDataAudios (int): Path to folder where all audio files are stored
+    """
     for d in t_data.itertuples():
         id = str(d.Id).zfill(9)
         text = str(d.Text).lower()
-        path = "./Data Files/Train/Audios/" + id + ".wav"
+        AudioFileExtention = ".wav"
+        path = PathDataAudios + id + AudioFileExtention
         X, lenmfcc_per = generate_input_from_audio_file(path)
         y, leny_per = generate_target_output_from_text(text)
         lsx.append(X)
@@ -158,24 +169,27 @@ def feature_extraction(
     lsy = []
     lenmfcc = []
     leny = []
+    PathDataAudios = (
+        "./Data Files/Train/Audios/"  # path to the training data audios (X)
+    )
+
+    PathDataTranscripts = "./Data Files/Train/transcription.txt"  # path to the training data transcripts (Y)
     # Read number of audio files in the ./Data/Train/Audios
     total_files = [
-        f
-        for f in listdir("./Data Files/Train/Audios/")
-        if isfile(join("./Data Files/Train/Audios/", f))
+        f for f in listdir(PathDataAudios) if isfile(join(PathDataAudios, f))
     ]
 
     # total number of files
     Totald = len(total_files)
     # 0 till Traind will be training data and from Traind till end it will be validation data
     Traind = int(Totald * train_val_split)
-    t_data = pd.read_csv(
-        "./Data Files/Train/transcription.txt", sep="\t", names=["Id", "Text"]
-    )
+    t_data = pd.read_csv(PathDataTranscripts, sep="\t", names=["Id", "Text"])
     t_data.head()
 
     # generate input feature from audio files
-    lsx, lsy, lenmfcc, leny = generate_max(t_data[:Totald], lsx, lsy, lenmfcc, leny)
+    lsx, lsy, lenmfcc, leny = encode_input_and_output(
+        t_data[:Totald], lsx, lsy, lenmfcc, leny, PathDataAudios
+    )
 
     # lsx = lsx[: 2000 + 428]
     # lsy = lsy[: 2000 + 428]
