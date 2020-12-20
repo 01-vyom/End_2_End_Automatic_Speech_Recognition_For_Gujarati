@@ -3,7 +3,7 @@
 
 ### [[Paper]](https://mypaperpage.pdf) |  [[Demo Video]](https://youtu.be/9YiZZ_8guq8) | [[Long Oral Talk]](https://youtu.be/RO4BBpe61h8)
 
-[Deepang Raval](wp_1)<sup>1</sup> | [Vyom Pathak](wp_2)<sup>1</sup> | [Muktan Patel](https://wp_3)<sup>1</sup> | [Brijesh Bhatt](https://scholar.google.com/citations?user=aEkOFcUAAAAJ)<sup>1</sup>
+[Deepang Raval](https://www.linkedin.com/in/deepang-raval-8528b816b/)<sup>1</sup> | [Vyom Pathak](https://www.linkedin.com/in/01-vyom/)<sup>1</sup> | [Muktan Patel](https://www.linkedin.com/in/muktan-patel/)<sup>1</sup> | [Brijesh Bhatt](https://scholar.google.com/citations?user=aEkOFcUAAAAJ)<sup>1</sup>
 
 <sup>1</sup>[Dharmsinh Desai University, Nadiad](https://ddu.ac.in)
 
@@ -56,8 +56,8 @@ python ./Train/train.py
 
 Note:
 
-- If required change the variables `PathDataAudios` and `PathDataTranscripts` to point to appropriate path to audio files and path to trascript file, in `Train/feature_extractor.py` file. 
-- If required change the variable `currmodel` in `Train/train.py` file to change the model name that is being saved.
+- If required change the variables `PathDataAudios` and `PathDataTranscripts` to point to appropriate path to audio files and path to trascript file, in [Train/feature_extractor.py](https://github.com/01-vyom/End_2_End_Automatic_Speech_Recognition_For_Gujarati/blob/main/Train/feature_extractor.py) file. 
+- If required change the variable `currmodel` in [Train/train.py](https://github.com/01-vyom/End_2_End_Automatic_Speech_Recognition_For_Gujarati/blob/main/Train/train.py) file to change the model name that is being saved.
 
 
 
@@ -93,7 +93,7 @@ Note:
 
 #### Post-Processing
 
-For post-processing the decoded output, follow the steps mentioned in this [README](link).
+For post-processing the decoded output, follow the steps mentioned in this [README](https://github.com/01-vyom/End_2_End_Automatic_Speech_Recognition_For_Gujarati/blob/main/Spell%20Corrector%20BERT/README.md).
 ### System Analysis
 
 To perform the system analysis, run:
