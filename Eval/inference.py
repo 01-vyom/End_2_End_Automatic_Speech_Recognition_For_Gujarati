@@ -42,15 +42,17 @@ def generate_input_from_audio_file_test(path_to_audio_file, resample_to=8000):
     return tp
 
 
-def eval(test_file_name, model_name):
+def eval(test_file_name, model_name, PathDataTranscripts, PathDataAudios):
     """
     function to test audio samples and store the otput in a pickle file.
     :param test_file_name (string): Stores the name of the file from which the audio ID will be fetched.
-    :param model_name (string): Stores model name which is used to retreive the model.
+    :param model_name (string): Stores model name which is used to retreive t
+    :param PathDataTranscripts (string): path to the transcript file.
+    :param PathDataAudios (string): path to the audio files.
     """
     # generate the output from given trained model
     test_data = pd.read_csv(
-        "Data Files/Test/" + test_file_name + ".txt", sep="\t", names=["Id", "Text"]
+        PathDataTranscripts + test_file_name + ".txt", sep="\t", names=["Id", "Text"]
     )
     model = dill.load(open("./Models/" + model_name + ".pickle", "rb"))
     # test_data.head()
@@ -59,7 +61,7 @@ def eval(test_file_name, model_name):
     for t in test_data.itertuples():
         id = str(t.Id).zfill(9)
         text = str(t.Text).lower()
-        testpath = "Data Files/Test/Audios/" + id + ".wav"
+        testpath = PathDataAudios + id + ".wav"
         refs.append(
             re.sub(
                 r"[^\u0A81\u0A82\u0A83\u0A85\u0A86\u0A87\u0A88\u0A89\u0A8A\u0A8B\u0A8C\u0A8D\u0A8F\u0A90\u0A91\u0A93\u0A94\u0A95\u0A96\u0A97\u0A98\u0A99\u0A9A\u0A9B\u0A9C\u0A9D\u0A9E\u0A9F\u0AA0\u0AA1\u0AA2\u0AA3\u0AA4\u0AA5\u0AA6\u0AA7\u0AA8\u0AAA\u0AAB\u0AAC\u0AAD\u0AAE\u0AAF\u0AB0\u0AB2\u0AB3\u0AB5\u0AB6\u0AB7\u0AB8\u0AB9\u0ABC\u0ABD\u0ABE\u0ABF\u0AC0\u0AC1\u0AC2\u0AC3\u0AC4\u0AC5\u0AC7\u0AC8\u0AC9\u0ACB\u0ACC\u0ACD\u0AD0\u0AE0\u0AE1\u0AE2\u0AE3\u0AF1 ]",
@@ -88,4 +90,6 @@ def eval(test_file_name, model_name):
 if __name__ == "__main__":
     model = "temp_model"
     test_data = "transcription"
-    eval(test_data, model)
+    PathDataTranscripts = "Data Files/Test/"
+    PathDataAudios = "Data Files/Test/Audios/"
+    eval(test_data, model, PathDataTranscripts, PathDataAudios)
