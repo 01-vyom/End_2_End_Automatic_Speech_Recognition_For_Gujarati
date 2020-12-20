@@ -10,6 +10,7 @@ def wlmOutput(string):
     res_dct = createDictionary()
     bi_dct, tri_dct, quad_dct = wlmDictionary()
     sl = list(string.split(" "))
+    total = 2501841
     
     ul=[]
     bl=[]
@@ -48,9 +49,9 @@ def wlmOutput(string):
         ql.append(count)
 
     for v in range(0,len(ul)):
-        up.append(ul[v]/2501841)
+        up.append(ul[v]/total)
         if(len(sl)==1):
-          return (ul[v]/2501841 + 1/2501841)
+          return (ul[v]/total + 1/total)
     # print(up)
 
     for v in range(0,len(bl)):
@@ -60,7 +61,7 @@ def wlmOutput(string):
             k = 0.01
         bp.append(0.2*up[v+1]+0.8*k)
         if(len(sl)==2):
-            return (0.2*up[v+1]+0.8*k + 1/2501841)
+            return (0.2*up[v+1]+0.8*k + 1/total)
 
     for v in range(0,len(tl)):
         try:
@@ -69,7 +70,7 @@ def wlmOutput(string):
             k = 0.01
         tp.append(0.1*up[v+2]+0.3*bp[v+1]+0.6*k)
         if(len(sl)==3):
-            return (0.1*up[v+2]+0.3*bp[v+1]+0.6*k + 1/2501841)
+            return (0.1*up[v+2]+0.3*bp[v+1]+0.6*k + 1/total)
     
 
     for v in range(0,len(ql)):
@@ -82,4 +83,4 @@ def wlmOutput(string):
     for i in qp:
         final *= i
   
-    return (final+1/2501841)
+    return (final+1/total)
