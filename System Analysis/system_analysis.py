@@ -12,7 +12,7 @@ def word_level(model_name, type):
     """
 
     # CSV containing Hypothesis and ground truth sentences.
-    Sentdata = pd.read_csv("./Eval/" + model_name + "_ALL_DECODING.csv")
+    Sentdata = pd.read_csv("Eval/" + model_name + "_ALL_DECODING.csv")
     Sentdata = Sentdata.replace(np.nan, "")
     # Checking Data
     # print(Sentdata.info())
@@ -166,7 +166,7 @@ def word_level(model_name, type):
 
     # TXT containing training sentences(transcripts).
     TrainSentdata = pd.read_csv(
-        "./Data Files/Train/transcription.txt", sep="\t", names=["Id", "Text"]
+        "Data Files/Train/transcription.txt", sep="\t", names=["Id", "Text"]
     )
 
     # Split for validation set(exclude the validation set)
@@ -284,7 +284,7 @@ def word_level(model_name, type):
     )
     # Count of words in training that are predicted correctly predicted as well as sometimes incorrectly predicted in testing and their frequencies.
     traincorrwrongall.to_csv(
-        "traincorrectwrongmix_" + type + model_name + ".csv", index=False
+        "System Analysis/traincorrectwrongmix_" + type + model_name + ".csv", index=False
     )
     # Count of words in training that are predicted always correct in testing and their frequencies.
     traincorrall.to_csv(
@@ -313,7 +313,7 @@ def character_level(model_name, type):
 
     # List of Actual and Predicted words
     actpred = pd.read_csv(
-        "./System Analysis/Actual_Predicted_" + type + model_name + "_ALLWORDS.csv"
+        "System Analysis/Actual_Predicted_" + type + model_name + "_ALLWORDS.csv"
     )
     # Cleaning
     actpred.fillna(" ", inplace=True)
