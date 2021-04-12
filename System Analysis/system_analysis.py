@@ -10,6 +10,7 @@ def word_level(model_name, type):
     :param  model_name (string): Model Name to specify the file on which the analysis is to be performed.
     :param  type (string): Specifying type of decoding on which analysis is to be done.
     """
+    analysis = []
 
     # CSV containing Hypothesis and ground truth sentences.
     Sentdata = pd.read_csv("Eval/" + model_name + "_ALL_DECODING.csv")
@@ -269,6 +270,92 @@ def word_level(model_name, type):
     # print(traincorrall.describe())
 
     # Saving the word level analysis:
+    sent = (
+        "Words in testing which are predicted incorrectly as well as correctly and their frequencies.\n"
+        + str(corrwrongall.head())
+        + "\n"
+        + str(corrwrongall.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    sent = (
+        "Words in testing which are always correctly predicted and their frequencies.\n"
+        + str(corrall.head())
+        + "\n"
+        + str(corrall.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    sent = (
+        "Words in testing which are always incorrectly predicted and their frequencies.\n"
+        + str(erroronly.head())
+        + "\n"
+        + str(erroronly.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    sent = (
+        " Count of words in training that are predicted correctly predicted as well as sometimes incorrectly predicted in testing and their frequencies.\n"
+        + str(traincorrwrongall.head())
+        + "\n"
+        + str(traincorrwrongall.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    sent = (
+        " Count of words in training that are predicted always correct in testing and their frequencies.\n"
+        + str(traincorrall.head())
+        + "\n"
+        + str(traincorrall.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    sent = (
+        "Count of words in training that are always incorrectly predicted in inferencing and their frequencies.\n"
+        + str(trainerroronly.head())
+        + "\n"
+        + str(trainerroronly.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    sent = (
+        " All the unique words of hypothesis and their frequencies.\n"
+        + str(totalwords.head())
+        + "\n"
+        + str(totalwords.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    sent = (
+        " Count of total unique words and their frequencies.\n"
+        + str(traintotalwords.head())
+        + "\n"
+        + str(traintotalwords.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    with open(
+        "System Analysis/Word_Level_" + type + model_name + "_Analysis.txt", "w"
+    ) as op:
+        op.write(
+            "\n-----------------------------------------------------\n".join(analysis)
+        )
 
     # Words in testing which are predicted incorrectly as well as correctly and their frequencies.
     corrwrongall.to_csv(
@@ -284,7 +371,8 @@ def word_level(model_name, type):
     )
     # Count of words in training that are predicted correctly predicted as well as sometimes incorrectly predicted in testing and their frequencies.
     traincorrwrongall.to_csv(
-        "System Analysis/traincorrectwrongmix_" + type + model_name + ".csv", index=False
+        "System Analysis/traincorrectwrongmix_" + type + model_name + ".csv",
+        index=False,
     )
     # Count of words in training that are predicted always correct in testing and their frequencies.
     traincorrall.to_csv(
@@ -310,6 +398,7 @@ def character_level(model_name, type):
     :param  model_name (string): Model Name to specify the file on which the analysis is to be performed.
     :param  type (string): Specifying type of decoding on which analysis is to be done.
     """
+    analysis = []
 
     # List of Actual and Predicted words
     actpred = pd.read_csv(
@@ -634,19 +723,19 @@ def character_level(model_name, type):
 
     # Checking Data
     """
-  print(words_with_dia_error)
-  print("__________")
-  print(words_with_inde_error)
-  print("__________")
-  print(words_with_con_error)
-  print("__________")
-  #Count of words with Consonant error
-  print(len(words_with_con_error))
-  #Count of words with Diacritic error
-  print(len(words_with_dia_error))
-  #Count of words with Independent error
-  print(len(words_with_inde_error))
-  """
+        print(words_with_dia_error)
+        print("__________")
+        print(words_with_inde_error)
+        print("__________")
+        print(words_with_con_error)
+        print("__________")
+        #Count of words with Consonant error
+        print(len(words_with_con_error))
+        #Count of words with Diacritic error
+        print(len(words_with_dia_error))
+        #Count of words with Independent error
+        print(len(words_with_inde_error))
+    """
 
     cons_df = pd.DataFrame(words_with_con_error)
     dias_df = pd.DataFrame(words_with_dia_error)
@@ -770,6 +859,150 @@ def character_level(model_name, type):
     # print(conjugate_slow)
 
     # Saving the character level analysis:
+
+    tot = len(actpred[actpred["same?"] == 0].index)
+
+    c_cons = len(cons_df.index)
+    sent = (
+        "Single Letter Consonant Error Words: \n"
+        + str(cons_df.head())
+        + "\n"
+        + str(cons_df.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    c_dias = len(dias_df.index)
+    sent = (
+        "Single Letter Diacritic Error Words: \n"
+        + str(dias_df.head())
+        + "\n"
+        + str(dias_df.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    c_inde = len(inde_df.index)
+    sent = (
+        "Single Letter Independent Error Words: \n"
+        + str(inde_df.head())
+        + "\n"
+        + str(inde_df.describe())
+        + "\n"
+    )
+    # print(sent)
+    analysis.append(sent)
+
+    sent1 = str(tot) + " total wrong words\n"
+    analysis.append(sent1)
+    # print(sent1)
+    sent2 = (
+        str(c_cons)
+        + " single consonant error\n"
+        + str(c_inde)
+        + " single independent error\n"
+        + str(c_dias)
+        + " single diacritic error\n"
+    )
+    # print(sent2)
+    analysis.append(sent2)
+
+    tot_sing_err = c_cons + c_dias + c_inde
+    sent3 = str(tot_sing_err) + " total single letter error\n"
+    # print(sent3)
+    analysis.append(sent3)
+
+    sent2 = (
+        str(round((tot_sing_err / tot) * 100, 2))
+        + "% single letter error out of total errorneous words.\n"
+    )
+    # print(sent2)
+    analysis.append(sent2)
+
+    sent3 = (
+        str(round((c_cons / tot_sing_err) * 100, 2))
+        + "% single Consonant error out of total single letter errorneous words.\n"
+        + str(round((c_inde / tot_sing_err) * 100, 2))
+        + "% single Independent error out of total single letter errorneous words.\n"
+        + str(round((c_dias / tot_sing_err) * 100, 2))
+        + "% single Diacritic error out of total single letter errorneous words.\n"
+    )
+    # print(sent3)
+    analysis.append(sent3)
+
+    l1 = list(freq_error_dia_actual.keys())
+    l2 = list(freq_error_dia_actual.values())
+    l3 = "\t\tChar\t\tFreq\n" + "\n".join(
+        " \t\t{}\t\t {}".format(x, y) for x, y in zip(l1, l2)
+    )
+    sent3 = (
+        " Frequency of Diacritic actual/needed in one letter error.\n " + l3 + "\n\n"
+    )
+    # print(sent3)
+    analysis.append(sent3)
+
+    l1 = list(freq_error_dia_pred.keys())
+    l2 = list(freq_error_dia_pred.values())
+    l3 = "\t\tChar\t\tFreq\n" + "\n".join(
+        " \t\t{}\t\t {}".format(x, y) for x, y in zip(l1, l2)
+    )
+    sent3 = (
+        " Frequency of Diacritic predicted/found in one letter error.\n" + l3 + "\n\n"
+    )
+    # print(sent3)
+    analysis.append(sent3)
+
+    l1 = list(freq_error_cons_actual.keys())
+    l2 = list(freq_error_cons_actual.values())
+    l3 = "\t\tChar\t\tFreq\n" + "\n".join(
+        " \t\t{}\t\t {}".format(x, y) for x, y in zip(l1, l2)
+    )
+    sent3 = " Frequency of Consonant actual/needed in one letter error.\n" + l3 + "\n\n"
+    # print(sent3)
+    analysis.append(sent3)
+
+    l1 = list(freq_error_cons_pred.keys())
+    l2 = list(freq_error_cons_pred.values())
+    l3 = "\t\tChar\t\tFreq\n" + "\n".join(
+        " \t\t{}\t\t {}".format(x, y) for x, y in zip(l1, l2)
+    )
+    sent3 = (
+        " Frequency of Consonant predicted/found in one letter error.\n" + l3 + "\n\n"
+    )
+    # print(sent3)
+    analysis.append(sent3)
+
+    l1 = list(freq_error_inde_actual.keys())
+    l2 = list(freq_error_inde_actual.values())
+    l3 = "\t\tChar\t\tFreq\n" + "\n".join(
+        " \t\t{}\t\t {}".format(x, y) for x, y in zip(l1, l2)
+    )
+    sent3 = (
+        " Frequency of Independent actual/needed in one letter error.\n" + l3 + "\n\n"
+    )
+    # print(sent3)
+    analysis.append(sent3)
+
+    l1 = list(freq_error_inde_pred.keys())
+    l2 = list(freq_error_inde_pred.values())
+    l3 = "\t\tChar\t\tFreq\n" + "\n".join(
+        " \t\t{}\t\t {}".format(x, y) for x, y in zip(l1, l2)
+    )
+    sent3 = (
+        " Frequency of Independent predicted/found in one letter error.\n" + l3 + "\n\n"
+    )
+    # print(sent3)
+    analysis.append(sent3)
+
+    with open(
+        "System Analysis/Char_Level_" + type + model_name + "_Analysis.txt", "w"
+    ) as op:
+        op.write(
+            "\n-----------------------------------------------------\n".join(analysis)
+        )
+
     # Saving the updated list of actual and predicted words with their frequencies
     actpred.to_csv(
         "System Analysis/Actual_Predicted_" + type + model_name + "_ALLWORDS.csv",
@@ -844,7 +1077,7 @@ def start_analysis(model_name, type):
 
 if __name__ == "__main__":
     # List of types of decoding
-    types = ["Greedy_", "Prefix_", "Prefix_LM_", "Prefix_WLM_", "Prefix_CLM_"]
+    types = ["Greedy_", "Prefix_", "Prefix_LM_", "Prefix_WLM_", "Prefix_CLM_", "Bert_"]
     # Type of model used for hypothesis generation and decoding.
     model = "temp_model"
     # Select type of decoding by entering a number : 1) Greedy 2) Prefix with NO LM 3) Prefix with Both LM 4) Prefix with WLM 5) Prefix with CLM 6) Bert
