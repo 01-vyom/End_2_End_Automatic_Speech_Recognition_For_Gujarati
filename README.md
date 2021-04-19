@@ -5,7 +5,7 @@
 
 [Deepang Raval](https://www.linkedin.com/in/deepang-raval-8528b816b/)<sup>1</sup> | [Vyom Pathak](https://www.linkedin.com/in/01-vyom/)<sup>1</sup> | [Muktan Patel](https://www.linkedin.com/in/muktan-patel/)<sup>1</sup> | [Brijesh Bhatt](https://scholar.google.com/citations?user=aEkOFcUAAAAJ)<sup>1</sup>
 
-<sup>1</sup>[Dharmsinh Desai University, Nadiad](https://ddu.ac.in)
+[Dharmsinh Desai University, Nadiad](https://ddu.ac.in)<sup>1</sup>
 
 We present a novel approach for improving the performance of an End-to-End speech recognition system for the Gujarati language. We follow a deep learning based approach which includes Convolutional Neural Network (CNN), Bi-directional Long Short Term Memory (BiLSTM) layers, Dense layers, and Connectionist Temporal Classification (CTC) as a loss function. In order to improve the performance of the system with the limited size of the dataset, we present a combined language model (WLM and CLM) based prefix decoding technique and Bidirectional Encoder Representations from Transformers (BERT) based post-processing technique. To gain key insights from our Automatic Speech Recognition (ASR) system, we proposed different analysis methods. These insights help to understand our ASR system based on a particular language (Gujarati) as well as can govern ASR systems' to improve the performance for low resource languages. We have trained the model on the Microsoft Speech Corpus, and we observe a 5.11% decrease in Word Error Rate (WER) with respect to base-model WER.
 

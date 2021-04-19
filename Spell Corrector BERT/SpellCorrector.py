@@ -2,6 +2,7 @@ import re
 from collections import Counter
 from CreateDict import createDictionary
 
+
 class SpellCorrector:
     """
     The SpellCorrector extends the functionality of the huseinzol05's
@@ -15,7 +16,7 @@ class SpellCorrector:
         super().__init__()
         self.WORDS = createDictionary()
         self.N = sum(self.WORDS.values())
-        
+
     @staticmethod
     def tokens(text):
         return REGEX_TOKEN.findall(text.lower())
@@ -38,7 +39,9 @@ class SpellCorrector:
         """
         All edits that are one edit away from `word`.
         """
-        letters = 'ઁંઃઅઆઇઈઉઊઋઌઍએઐઑઓઔકખગઘઙચછજઝઞટઠડઢણતથદધનપફબભમયરલળવશષસહ઼ઽાિીુૂૃૄૅેૈૉોૌ્ૐૠૡૢૣ૱'
+        letters = (
+            "ઁંઃઅઆઇઈઉઊઋઌઍએઐઑઓઔકખગઘઙચછજઝઞટઠડઢણતથદધનપફબભમયરલળવશષસહ઼ઽાિીુૂૃૄૅેૈૉોૌ્ૐૠૡૢૣ૱"
+        )
         splits = [(word[:i], word[i:]) for i in range(len(word) + 1)]
         deletes = [L + R[1:] for L, R in splits if R]
         transposes = [L + R[1] + R[0] + R[2:] for L, R in splits if len(R) > 1]
@@ -50,8 +53,7 @@ class SpellCorrector:
         """
         All edits that are two edits away from `word`.
         """
-        return (e2 for e1 in self.edit_step(word)
-                for e2 in self.edit_step(e1))
+        return (e2 for e1 in self.edit_step(word) for e2 in self.edit_step(e1))
 
     def known(self, words):
         """
@@ -71,6 +73,6 @@ class SpellCorrector:
             ftp = self.known(self.edit_step(word))
             ttp.update(ftp)
             ttt = ttp or {word}
-        
+
         ttt = self.known([word]) | ttt
         return list(ttt)
