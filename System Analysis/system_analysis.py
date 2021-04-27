@@ -13,15 +13,45 @@ def word_level(model_name, type):
     analysis = []
 
     # CSV containing Hypothesis and ground truth sentences.
-    Sentdata = pd.read_csv("Eval/" + model_name + "_ALL_DECODING.csv")
+    try:
+        Sentdata = pd.read_csv("Eval/" + model_name + "_ALL_DECODING.csv")
+    except:
+        print(
+            "Unable to read "
+            + model_name
+            + "_ALL_DECODING.csv Check if it is available in Eval folder"
+        )
+        print("skipping analysis...")
+        return
+
     Sentdata = Sentdata.replace(np.nan, "")
     # Checking Data
     # print(Sentdata.info())
 
-    # Ground Truth sentences.
-    ground = list(Sentdata["Actual_" + model_name].values)
-    # Hypothesis sentences for a particular decoding technique.
-    pred = list(Sentdata["Hypothesis_" + type + model_name].values)
+    try:
+        # Ground Truth sentences.
+        ground = list(Sentdata["Actual_" + model_name].values)
+    except:
+        print(
+            "CSV does not have Actual_"
+            + model_name
+            + " attribute. please provide correct model_name"
+        )
+        print("skipping analysis...")
+        return
+
+    try:
+        # Hypothesis sentences for a particular decoding technique.
+        pred = list(Sentdata["Hypothesis_" + type + model_name].values)
+    except:
+        print(
+            "CSV does not have Hypothesis_"
+            + type
+            + model_name
+            + " attribute. please provide correct type and/or model_name"
+        )
+        print("skipping analysis...")
+        return
 
     list_err = []
     corr = []
@@ -166,9 +196,14 @@ def word_level(model_name, type):
     # Training Data Analysis
 
     # TXT containing training sentences(transcripts).
-    TrainSentdata = pd.read_csv(
-        "Data Files/Train/transcription.txt", sep="\t", names=["Id", "Text"]
-    )
+    try:
+        TrainSentdata = pd.read_csv(
+            "Data Files/Train/transcription.txt", sep="\t", names=["Id", "Text"]
+        )
+    except:
+        print("Unable to read transcription.txt file.")
+        print("skipping analysis...")
+        return
 
     # Split for validation set(exclude the validation set)
     # TrainSentdata = TrainSentdata[:16000]
@@ -270,85 +305,109 @@ def word_level(model_name, type):
     # print(traincorrall.describe())
 
     # Saving the word level analysis:
-    sent = (
-        "Words in testing which are predicted incorrectly as well as correctly and their frequencies.\n"
-        + str(corrwrongall.head())
-        + "\n"
-        + str(corrwrongall.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        sent = (
+            "Words in testing which are predicted incorrectly as well as correctly and their frequencies.\n"
+            + str(corrwrongall.head())
+            + "\n"
+            + str(corrwrongall.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
-    sent = (
-        "Words in testing which are always correctly predicted and their frequencies.\n"
-        + str(corrall.head())
-        + "\n"
-        + str(corrall.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        sent = (
+            "Words in testing which are always correctly predicted and their frequencies.\n"
+            + str(corrall.head())
+            + "\n"
+            + str(corrall.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
-    sent = (
-        "Words in testing which are always incorrectly predicted and their frequencies.\n"
-        + str(erroronly.head())
-        + "\n"
-        + str(erroronly.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        sent = (
+            "Words in testing which are always incorrectly predicted and their frequencies.\n"
+            + str(erroronly.head())
+            + "\n"
+            + str(erroronly.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
-    sent = (
-        " Count of words in training that are predicted correctly predicted as well as sometimes incorrectly predicted in testing and their frequencies.\n"
-        + str(traincorrwrongall.head())
-        + "\n"
-        + str(traincorrwrongall.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        sent = (
+            " Count of words in training that are predicted correctly predicted as well as sometimes incorrectly predicted in testing and their frequencies.\n"
+            + str(traincorrwrongall.head())
+            + "\n"
+            + str(traincorrwrongall.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
-    sent = (
-        " Count of words in training that are predicted always correct in testing and their frequencies.\n"
-        + str(traincorrall.head())
-        + "\n"
-        + str(traincorrall.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        sent = (
+            " Count of words in training that are predicted always correct in testing and their frequencies.\n"
+            + str(traincorrall.head())
+            + "\n"
+            + str(traincorrall.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
-    sent = (
-        "Count of words in training that are always incorrectly predicted in inferencing and their frequencies.\n"
-        + str(trainerroronly.head())
-        + "\n"
-        + str(trainerroronly.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        sent = (
+            "Count of words in training that are always incorrectly predicted in inferencing and their frequencies.\n"
+            + str(trainerroronly.head())
+            + "\n"
+            + str(trainerroronly.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
-    sent = (
-        " All the unique words of hypothesis and their frequencies.\n"
-        + str(totalwords.head())
-        + "\n"
-        + str(totalwords.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        sent = (
+            " All the unique words of hypothesis and their frequencies.\n"
+            + str(totalwords.head())
+            + "\n"
+            + str(totalwords.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
-    sent = (
-        " Count of total unique words and their frequencies.\n"
-        + str(traintotalwords.head())
-        + "\n"
-        + str(traintotalwords.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        sent = (
+            " Count of total unique words and their frequencies.\n"
+            + str(traintotalwords.head())
+            + "\n"
+            + str(traintotalwords.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
     with open(
         "System Analysis/Word_Level_" + type + model_name + "_Analysis.txt", "w"
@@ -400,23 +459,45 @@ def character_level(model_name, type):
     """
     analysis = []
 
-    # List of Actual and Predicted words
-    actpred = pd.read_csv(
-        "System Analysis/Actual_Predicted_" + type + model_name + "_ALLWORDS.csv"
-    )
+    try:
+        # List of Actual and Predicted words
+        actpred = pd.read_csv(
+            "System Analysis/Actual_Predicted_" + type + model_name + "_ALLWORDS.csv"
+        )
+    except:
+        print(
+            "Cannot find Actual_Predicted_"
+            + type
+            + model_name
+            + "_ALLWORDS.csv It is not generated. Solve any prior errors to avoid this error."
+        )
+        print("skipping analysis...")
+        return
+
     # Cleaning
     actpred.fillna(" ", inplace=True)
     actual = list(actpred["Actual_word"].values)
     preds = list(actpred["Predicted_word"].values)
 
     # Training Words
-    corpus = pd.read_csv(
-        "Data Files/Train/transcription.txt", sep="\t", names=["Id", "Text"]
-    )
+    try:
+        corpus = pd.read_csv(
+            "Data Files/Train/transcription.txt", sep="\t", names=["Id", "Text"]
+        )
+    except:
+        print("Unable to read train transcription.txt file.")
+        print("skipping analysis...")
+        return
+
     # Testing Words
-    test_corpus = pd.read_csv(
-        "Data Files/Test/transcription.txt", sep="\t", names=["Id", "Text"]
-    )
+    try:
+        test_corpus = pd.read_csv(
+            "Data Files/Test/transcription.txt", sep="\t", names=["Id", "Text"]
+        )
+    except:
+        print("Unable to read test transcription.txt file.")
+        print("skipping analysis...")
+        return
     # corpus = corpus[:16000]
 
     # All the words used in training as well as testing.
@@ -862,41 +943,52 @@ def character_level(model_name, type):
 
     tot = len(actpred[actpred["same?"] == 0].index)
 
-    c_cons = len(cons_df.index)
-    sent = (
-        "Single Letter Consonant Error Words: \n"
-        + str(cons_df.head())
-        + "\n"
-        + str(cons_df.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        c_cons = len(cons_df.index)
+        sent = (
+            "Single Letter Consonant Error Words: \n"
+            + str(cons_df.head())
+            + "\n"
+            + str(cons_df.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
-    c_dias = len(dias_df.index)
-    sent = (
-        "Single Letter Diacritic Error Words: \n"
-        + str(dias_df.head())
-        + "\n"
-        + str(dias_df.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+        c_dias = len(dias_df.index)
+        sent = (
+            "Single Letter Diacritic Error Words: \n"
+            + str(dias_df.head())
+            + "\n"
+            + str(dias_df.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
-    c_inde = len(inde_df.index)
-    sent = (
-        "Single Letter Independent Error Words: \n"
-        + str(inde_df.head())
-        + "\n"
-        + str(inde_df.describe())
-        + "\n"
-    )
-    # print(sent)
-    analysis.append(sent)
+    try:
+
+        c_inde = len(inde_df.index)
+        sent = (
+            "Single Letter Independent Error Words: \n"
+            + str(inde_df.head())
+            + "\n"
+            + str(inde_df.describe())
+            + "\n"
+        )
+        # print(sent)
+        analysis.append(sent)
+    except:
+        print("No sufficient data to perform some analysis")
 
     sent1 = str(tot) + " total wrong words\n"
     analysis.append(sent1)
+
     # print(sent1)
     sent2 = (
         str(c_cons)
