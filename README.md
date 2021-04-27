@@ -123,3 +123,5 @@ Note:
 ## Acknowledgement
 
 The prefix decoding code is based on [1](https://github.com/corticph/prefix-beam-search) and [2](https://github.com/githubharald/CTCDecoder) open-source implementations. The code for Bert based spell corrector is adapted from this [open-source implementation](https://github.com/huseinzol05/NLP-Models-Tensorflow)
+
+Licensed under the [MIT License](LICENSE.md).
