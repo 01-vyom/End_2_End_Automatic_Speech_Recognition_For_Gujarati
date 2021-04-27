@@ -316,7 +316,9 @@ def word_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     try:
         sent = (
@@ -329,7 +331,9 @@ def word_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     try:
         sent = (
@@ -342,7 +346,9 @@ def word_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     try:
         sent = (
@@ -355,7 +361,9 @@ def word_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     try:
         sent = (
@@ -368,7 +376,9 @@ def word_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     try:
         sent = (
@@ -381,7 +391,9 @@ def word_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     try:
         sent = (
@@ -394,7 +406,9 @@ def word_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     try:
         sent = (
@@ -407,7 +421,9 @@ def word_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     with open(
         "System Analysis/Word_Level_" + type + model_name + "_Analysis.txt", "w"
@@ -955,7 +971,9 @@ def character_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     try:
         c_dias = len(dias_df.index)
@@ -969,7 +987,9 @@ def character_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     try:
 
@@ -984,7 +1004,9 @@ def character_level(model_name, type):
         # print(sent)
         analysis.append(sent)
     except:
-        print("No sufficient data to perform some analysis")
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     sent1 = str(tot) + " total wrong words\n"
     analysis.append(sent1)
@@ -1006,23 +1028,34 @@ def character_level(model_name, type):
     # print(sent3)
     analysis.append(sent3)
 
-    sent2 = (
-        str(round((tot_sing_err / tot) * 100, 2))
-        + "% single letter error out of total errorneous words.\n"
-    )
-    # print(sent2)
-    analysis.append(sent2)
+    try:
 
-    sent3 = (
-        str(round((c_cons / tot_sing_err) * 100, 2))
-        + "% single Consonant error out of total single letter errorneous words.\n"
-        + str(round((c_inde / tot_sing_err) * 100, 2))
-        + "% single Independent error out of total single letter errorneous words.\n"
-        + str(round((c_dias / tot_sing_err) * 100, 2))
-        + "% single Diacritic error out of total single letter errorneous words.\n"
-    )
-    # print(sent3)
-    analysis.append(sent3)
+        sent2 = (
+            str(round((tot_sing_err / tot) * 100, 2))
+            + "% single letter error out of total errorneous words.\n"
+        )
+        # print(sent2)
+        analysis.append(sent2)
+    except:
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
+
+    try:
+        sent3 = (
+            str(round((c_cons / tot_sing_err) * 100, 2))
+            + "% single Consonant error out of total single letter errorneous words.\n"
+            + str(round((c_inde / tot_sing_err) * 100, 2))
+            + "% single Independent error out of total single letter errorneous words.\n"
+            + str(round((c_dias / tot_sing_err) * 100, 2))
+            + "% single Diacritic error out of total single letter errorneous words.\n"
+        )
+        # print(sent3)
+        analysis.append(sent3)
+    except:
+        print(
+            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+        )
 
     l1 = list(freq_error_dia_actual.keys())
     l2 = list(freq_error_dia_actual.values())
