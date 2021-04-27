@@ -11,8 +11,7 @@ We present a novel approach for improving the performance of an End-to-End speec
 
 Complete proceedings can be found [here](https://www.iitp.ac.in/~ai-nlp-ml/icon2020/resources/ICON2020-Proceedings.pdf).
 
-If you find this work useful in your research, please cite using the following BibTeX:
-<!-- BIB Here -->
+<!-- If you find this work useful in your research, please cite using the following BibTeX: BIB Here -->
 
 ## Setup
 
