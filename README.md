@@ -1,7 +1,7 @@
 # End-to-End Automatic Speech Recognition For Gujarati
 ## ICON 2020: 17th International Conference on Natural Language Processing
 
-### [[Paper]](https://drive.google.com/file/d/1u-X61pTSxoCEF-xC9IX7UVJiG482LeHR/view) | [[Long Oral Talk]](https://youtu.be/RO4BBpe61h8)
+### [[Paper]](https://www.iitp.ac.in/~ai-nlp-ml/icon2020/resources/ICON2020-Proceedings.pdf#page=433) | [[Long Oral Talk]](https://youtu.be/RO4BBpe61h8)
 
 [Deepang Raval](https://www.linkedin.com/in/deepang-raval-8528b816b/)<sup>1</sup> | [Vyom Pathak](https://www.linkedin.com/in/01-vyom/)<sup>1</sup> | [Muktan Patel](https://www.linkedin.com/in/muktan-patel/)<sup>1</sup> | [Brijesh Bhatt](https://scholar.google.com/citations?user=aEkOFcUAAAAJ)<sup>1</sup>
 
