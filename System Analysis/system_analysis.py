@@ -19,9 +19,9 @@ def word_level(model_name, type):
         print(
             "Unable to read "
             + model_name
-            + "_ALL_DECODING.csv Check if it is available in Eval folder"
+            + "_ALL_DECODING.csv check if it is available in Eval folder"
         )
-        print("skipping analysis...")
+        print("Skipping analysis...")
         return
 
     Sentdata = Sentdata.replace(np.nan, "")
@@ -33,11 +33,11 @@ def word_level(model_name, type):
         ground = list(Sentdata["Actual_" + model_name].values)
     except:
         print(
-            "CSV does not have Actual_"
+            "CSV does not have a column with column name Actual_"
             + model_name
-            + " attribute. please provide correct model_name"
+            + ", which is required."
         )
-        print("skipping analysis...")
+        print("Skipping analysis...")
         return
 
     try:
@@ -45,12 +45,12 @@ def word_level(model_name, type):
         pred = list(Sentdata["Hypothesis_" + type + model_name].values)
     except:
         print(
-            "CSV does not have Hypothesis_"
+            "CSV does not have a column with column name Hypothesis_"
             + type
             + model_name
-            + " attribute. please provide correct type and/or model_name"
+            + ", which is required."
         )
-        print("skipping analysis...")
+        print("Skipping analysis...")
         return
 
     list_err = []
@@ -202,7 +202,7 @@ def word_level(model_name, type):
         )
     except:
         print("Unable to read transcription.txt file.")
-        print("skipping analysis...")
+        print("Skipping analysis...")
         return
 
     # Split for validation set(exclude the validation set)
@@ -317,7 +317,7 @@ def word_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -332,7 +332,7 @@ def word_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -347,7 +347,7 @@ def word_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -362,7 +362,7 @@ def word_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -377,7 +377,7 @@ def word_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -392,7 +392,7 @@ def word_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -407,7 +407,7 @@ def word_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -422,7 +422,7 @@ def word_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     with open(
@@ -487,7 +487,7 @@ def character_level(model_name, type):
             + model_name
             + "_ALLWORDS.csv It is not generated. Solve any prior errors to avoid this error."
         )
-        print("skipping analysis...")
+        print("Skipping analysis...")
         return
 
     # Cleaning
@@ -502,7 +502,7 @@ def character_level(model_name, type):
         )
     except:
         print("Unable to read train transcription.txt file.")
-        print("skipping analysis...")
+        print("Skipping analysis...")
         return
 
     # Testing Words
@@ -512,7 +512,7 @@ def character_level(model_name, type):
         )
     except:
         print("Unable to read test transcription.txt file.")
-        print("skipping analysis...")
+        print("Skipping analysis...")
         return
     # corpus = corpus[:16000]
 
@@ -972,7 +972,7 @@ def character_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -988,7 +988,7 @@ def character_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -1005,7 +1005,7 @@ def character_level(model_name, type):
         analysis.append(sent)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     sent1 = str(tot) + " total wrong words\n"
@@ -1038,7 +1038,7 @@ def character_level(model_name, type):
         analysis.append(sent2)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     try:
@@ -1054,7 +1054,7 @@ def character_level(model_name, type):
         analysis.append(sent3)
     except:
         print(
-            "No sufficient data to perform some analysis. Skipping current, moving to next analysis."
+            "Due to insufficient data, skipping some analysis and moving to the next analysis."
         )
 
     l1 = list(freq_error_dia_actual.keys())
