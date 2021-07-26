@@ -1,7 +1,7 @@
 # End-to-End Automatic Speech Recognition For Gujarati
 ## ICON 2020: 17th International Conference on Natural Language Processing
 
-### [[Paper]](https://www.iitp.ac.in/~ai-nlp-ml/icon2020/resources/ICON2020-Proceedings.pdf#page=433) | [[Long Oral Talk]](https://youtu.be/RO4BBpe61h8)
+### [[Paper]](https://aclanthology.org/2020.icon-main.56) | [[Long Oral Talk]](https://youtu.be/RO4BBpe61h8)
 
 [Deepang Raval](https://www.linkedin.com/in/deepang-raval-8528b816b/)<sup>1</sup> | [Vyom Pathak](https://www.linkedin.com/in/01-vyom/)<sup>1</sup> | [Muktan Patel](https://www.linkedin.com/in/muktan-patel/)<sup>1</sup> | [Brijesh Bhatt](https://scholar.google.com/citations?user=aEkOFcUAAAAJ)<sup>1</sup>
 
@@ -10,20 +10,21 @@
 We present a novel approach for improving the performance of an End-to-End speech recognition system for the Gujarati language. We follow a deep learning based approach which includes Convolutional Neural Network (CNN), Bi-directional Long Short Term Memory (BiLSTM) layers, Dense layers, and Connectionist Temporal Classification (CTC) as a loss function. In order to improve the performance of the system with the limited size of the dataset, we present a combined language model (WLM and CLM) based prefix decoding technique and Bidirectional Encoder Representations from Transformers (BERT) based post-processing technique. To gain key insights from our Automatic Speech Recognition (ASR) system, we proposed different analysis methods. These insights help to understand our ASR system based on a particular language (Gujarati) as well as can govern ASR systems' to improve the performance for low resource languages. We have trained the model on the Microsoft Speech Corpus, and we observe a 5.11% decrease in Word Error Rate (WER) with respect to base-model WER.
 
 If you find this work useful, please cite this work using the following BibTeX:
-```
+```bibtex
 @inproceedings{raval-etal-2020-end,
-    title = "End-to-End Automatic Speech Recognition for Gujarati",
+    title = "End-to-End Automatic Speech Recognition for {G}ujarati",
     author = "Raval, Deepang  and
-      Pathak, Vyom and
-      Patel, Muktan and
+      Pathak, Vyom  and
+      Patel, Muktan  and
       Bhatt, Brijesh",
-    booktitle = "Proceedings of the 17th International Conference on Natural Language Processing ({ICON}-2020)",
+    booktitle = "Proceedings of the 17th International Conference on Natural Language Processing (ICON)",
     month = dec,
     year = "2020",
-    address = "Patna, India",
-    publisher = "NLP Association of India",
-    url = "https://www.iitp.ac.in/~ai-nlp-ml/icon2020/resources/ICON2020-Proceedings.pdf#page=433",
+    address = "Indian Institute of Technology Patna, Patna, India",
+    publisher = "NLP Association of India (NLPAI)",
+    url = "https://aclanthology.org/2020.icon-main.56",
     pages = "409--419",
+    abstract = "We present a novel approach for improving the performance of an End-to-End speech recognition system for the Gujarati language. We follow a deep learning based approach which includes Convolutional Neural Network (CNN), Bi-directional Long Short Term Memory (BiLSTM) layers, Dense layers, and Connectionist Temporal Classification (CTC) as a loss function. In order to improve the performance of the system with the limited size of the dataset, we present a combined language model (WLM and CLM) based prefix decoding technique and Bidirectional Encoder Representations from Transformers (BERT) based post-processing technique. To gain key insights from our Automatic Speech Recognition (ASR) system, we proposed different analysis methods. These insights help to understand our ASR system based on a particular language (Gujarati) as well as can govern ASR systems{'} to improve the performance for low resource languages. We have trained the model on the Microsoft Speech Corpus, and we observe a 5.11{\%} decrease in Word Error Rate (WER) with respect to base-model WER.",
 }
 ```
 
